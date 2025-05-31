@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:latest
+    container_name: db
+    environment:
+      POSTGRES_DB: db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - './исходные данные/:/data/'
+      - './sql/:/docker-entrypoint-initdb.d/'
+    ports:
+      - "5432:5432"

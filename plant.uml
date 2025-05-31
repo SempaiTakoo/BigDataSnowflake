@@ -1,0 +1,82 @@
+@startuml
+
+entity customers {
+    primary_key(customer_id) : SERIAL
+    first_name : TEXT
+    last_name : TEXT
+    age : INT
+    email : TEXT <<unique>>
+    country : TEXT
+    postal_code : TEXT
+    pet_type : TEXT
+    pet_name : TEXT
+    pet_breed : TEXT
+}
+
+entity sellers {
+    primary_key(seller_id) : SERIAL
+    first_name : TEXT
+    last_name : TEXT
+    email : TEXT <<unique>>
+    country : TEXT
+    postal_code : TEXT
+}
+
+entity products {
+    primary_key(product_id) : SERIAL
+    name : TEXT
+    category : TEXT
+    price : NUMERIC(10,2)
+    weight : NUMERIC(10,2)
+    color : TEXT
+    size : TEXT
+    brand : TEXT
+    material : TEXT
+    description : TEXT
+    rating : NUMERIC(3,1)
+    reviews : INT
+    release_date : DATE
+    expiry_date : DATE
+}
+
+entity stores {
+    primary_key(store_id) : SERIAL
+    name : TEXT
+    location : TEXT
+    city : TEXT
+    state : TEXT
+    country : TEXT
+    phone : TEXT
+    email : TEXT
+}
+
+entity suppliers {
+    primary_key(supplier_id) : SERIAL
+    name : TEXT
+    contact : TEXT
+    email : TEXT
+    phone : TEXT
+    address : TEXT
+    city : TEXT
+    country : TEXT
+}
+
+entity fact_sales {
+    primary_key(sale_id) : SERIAL
+    foreign_key(customer_id) : INT
+    foreign_key(seller_id) : INT
+    foreign_key(product_id) : INT
+    foreign_key(store_id) : INT
+    foreign_key(supplier_id) : INT
+    sale_date : DATE
+    quantity : INT
+    total_price : NUMERIC(10,2)
+}
+
+fact_sales::customer_id --> customers::customer_id
+fact_sales::seller_id --> sellers::seller_id
+fact_sales::product_id --> products::product_id
+fact_sales::store_id --> stores::store_id
+fact_sales::supplier_id --> suppliers::supplier_id
+
+@enduml
